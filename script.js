@@ -244,17 +244,16 @@
     const list = document.getElementById("projetos-lista");
     if (!list) return;
 
-    // Filtra: não-fork, não-vazio, ordena por stars + updated
+    // Filtra: não-fork, não-vazio, exclui README do perfil e repositório "sobre-mim", ordena por stars + updated
     const filtered = repos
-      .filter((r) => !r.fork && r.name !== GITHUB_USERNAME.toLowerCase())
+      .filter((r) => !r.fork && r.name !== GITHUB_USERNAME.toLowerCase() && r.name !== "sobre-mim")
       .sort((a, b) => {
         // Prioriza repos com stars, depois por atualização
         if (b.stargazers_count !== a.stargazers_count) {
           return b.stargazers_count - a.stargazers_count;
         }
         return new Date(b.updated_at) - new Date(a.updated_at);
-      })
-      .slice(0, 9); // Máximo 9 projetos
+      });
 
     if (filtered.length === 0) {
       list.innerHTML = `<li style="text-align:center;padding:var(--spacing-2xl);color:var(--color-fg-muted)">Nenhum projeto público encontrado</li>`;
