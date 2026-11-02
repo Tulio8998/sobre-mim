@@ -444,6 +444,74 @@
   }
 
   // ==========================================================================
+  // 4. ANIMAÇÃO DE CARREGAMENTO E SCROLL
+  // ==========================================================================
+
+  /**
+   * Verifica se o usuário prefere movimento reduzido
+   */
+  function prefersReducedMotion() {
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  /**
+   * Adiciona classe .loaded ao body para disparar animações de entrada
+   * Usa requestAnimationFrame para garantir que o browser já pintou o estado inicial
+   */
+  function triggerLoadAnimation() {
+    if (prefersReducedMotion()) {
+      // Se prefers-reduced-motion, apenas torna visível sem animação
+      document.body.classList.add("loaded");
+      return;
+    }
+
+    // Aguarda o próximo frame para garantir que o estado inicial (opacity: 0) foi aplicado
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.body.classList.add("loaded");
+      });
+    });
+  }
+
+  /**
+   * Configura IntersectionObserver para animar elementos ao entrarem no viewport
+   */
+  function setupScrollAnimations() {
+    if (prefersReducedMotion()) {
+      // Se prefers-reduced-motion, mostra todos imediatamente
+      document.querySelectorAll(".animate-on-scroll, .animate-stagger > *").forEach((el) => {
+        el.style.opacity = "1";
+        el.style.transform = "none";
+      });
+      document.querySelectorAll(".animate-on-scroll, .animate-stagger").forEach((el) => {
+        el.classList.add("is-visible");
+      });
+      return;
+    }
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px 0px -10% 0px", // Dispara um pouco antes de chegar no bottom
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          obs.unobserve(entry.target); // Anima apenas uma vez
+        }
+      });
+    }, observerOptions);
+
+    // Observa elementos com .animate-on-scroll
+    document.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
+
+    // Observa containers com .animate-stagger
+    document.querySelectorAll(".animate-stagger").forEach((el) => observer.observe(el));
+  }
+
+  // ==========================================================================
   // INICIALIZAÇÃO PRINCIPAL
   // ==========================================================================
 
@@ -455,6 +523,8 @@
     setupThemeToggle(initialTheme);
     loadProjects();
     initMascote();
+    triggerLoadAnimation();
+    setupScrollAnimations();
   });
 
 })();

@@ -524,42 +524,83 @@ footer p {
   }
 }
 
+/* Estado inicial: invisível, aguarda .loaded no body */
 .page-wrapper > * {
-  animation: fade-in-up var(--transition-slow) ease-out forwards;
   opacity: 0;
+  transform: translateY(20px);
 }
 
-header {
+/* Quando .loaded está presente, anima os filhos diretos do page-wrapper */
+body.loaded .page-wrapper > * {
+  animation: fade-in-up var(--transition-slow) ease-out forwards;
+}
+
+body.loaded header {
   animation-delay: 0ms;
 }
 
-#sobre {
+body.loaded #sobre {
   animation-delay: 100ms;
 }
 
-#tecnologias {
+body.loaded #tecnologias {
   animation-delay: 200ms;
 }
 
-#projetos {
+body.loaded #projetos {
   animation-delay: 300ms;
 }
 
-footer {
+body.loaded footer {
   animation-delay: 400ms;
 }
 
-#mascote {
+body.loaded #mascote {
   animation: fade-in-up var(--transition-slow) ease-out 500ms forwards;
-  opacity: 0;
 }
+
+/* Animação para elementos que entram no viewport (IntersectionObserver) */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-slow) ease-out, transform var(--transition-slow) ease-out;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger para filhos de containers observados */
+.animate-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.animate-stagger.is-visible > * {
+  animation: fade-in-up var(--transition-slow) ease-out forwards;
+}
+
+.animate-stagger.is-visible > *:nth-child(1) { animation-delay: 0ms; }
+.animate-stagger.is-visible > *:nth-child(2) { animation-delay: 100ms; }
+.animate-stagger.is-visible > *:nth-child(3) { animation-delay: 200ms; }
+.animate-stagger.is-visible > *:nth-child(4) { animation-delay: 300ms; }
+.animate-stagger.is-visible > *:nth-child(5) { animation-delay: 400ms; }
+.animate-stagger.is-visible > *:nth-child(6) { animation-delay: 500ms; }
+.animate-stagger.is-visible > *:nth-child(7) { animation-delay: 600ms; }
+.animate-stagger.is-visible > *:nth-child(8) { animation-delay: 700ms; }
+.animate-stagger.is-visible > *:nth-child(9) { animation-delay: 800ms; }
 
 /* Respeita prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .page-wrapper > *,
-  #mascote {
-    animation: none;
-    opacity: 1;
+  #mascote,
+  .animate-on-scroll,
+  .animate-stagger > * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 
   #theme-toggle,
