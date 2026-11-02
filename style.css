@@ -370,6 +370,9 @@ header > p {
 }
 
 .projeto-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   padding: var(--spacing-lg);
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
@@ -398,6 +401,7 @@ header > p {
   color: var(--color-fg-secondary);
   margin-bottom: var(--spacing-md);
   line-height: var(--line-height-normal);
+  flex-grow: 1;
 }
 
 .projeto-card .projeto-meta {
@@ -654,7 +658,7 @@ html, body {
   }
 
   #projetos-lista {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   header {
