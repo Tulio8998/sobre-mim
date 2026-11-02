@@ -1,7 +1,3 @@
-Organizei o arquivo completo na ordem em que os prompts foram enviados, incluindo as etapas que estavam faltando: favicon, mascote interativo e animação de carregamento.
-
-Removi todos os commits, as indicações de PARTE 0, PARTE 1 etc. e os blocos desnecessários. Mantive os prompts em sua sequência original, com formatação Markdown padronizada.
-
 # PROMPTS.md
 
 Este arquivo registra todos os prompts utilizados durante a construção da página pessoal "Sobre mim", organizados na ordem em que foram enviados.
@@ -13,8 +9,6 @@ Este arquivo registra todos os prompts utilizados durante a construção da pág
 **Prompt:**
 
 Antes de começarmos, gere um AGENTS.md na raiz do projeto com as regras do projeto.
-
-O conteúdo base está abaixo. Leia, entenda e estruture em um AGENTS.md bem formatado. Vou revisar antes de commitar.
 
 Regras:
 
@@ -31,9 +25,7 @@ Regras:
 - Seção de Projetos consumindo API pública do GitHub
 - Mascote do GitHub interativo (olhos seguem o mouse, clique muda de cor)
 - Favicon SVG do mascote
-- Animação suave ao carregar
-- Commits semânticos (Conventional Commits)
-- Regra do escoteiro: deixe o código mais limpo do que encontrou
+- Animaç limpo do que encontrou
 - DRY, KISS, YAGNI
 - Nomes significativos
 - Funções pequenas
@@ -259,28 +251,101 @@ Sem bibliotecas externas.
 
 ---
 
+## Correção de Bug — Tela Escura ao Carregar (style.css)
+
+**Prompt:**
+
+Corrigir o bug que deixa a tela escura ao rodar o projeto.
+Instrução: No arquivo style.css, vá até as variáveis do :root na seção de transições. As variáveis --transition-fast, --transition-normal e --transition-slow estão definidas com a curva de tempo embutida (ex: 350ms ease). Remova a palavra ease de todas elas, deixando apenas o tempo (ex: --transition-slow: 350ms;). Isso está causando um erro de sintaxe na propriedade animation mais abaixo, impedindo que a opacidade dos elementos saia de 0 para 1.
+
+---
+
+## Atualização da Lista de Tecnologias (index.html)
+
+**Prompt:**
+
+Alterar os itens da lista de tecnologias.
+Instrução: No arquivo index.html, localize a seção <section id="tecnologias">. Altere os itens da lista (<li>) de "Rust", "Kubernetes" e "TensorFlow" para "Micronaut", "Kafka" e "Jenkins".
+
+---
+
+## Melhoria no Carregamento de Projetos via GitHub API (script.js)
+
+**Prompt:**
+
+Trazer todos os projetos públicos corretamente e filtrar repositórios indesejados.
+Instrução: No arquivo script.js, na função que filtra e renderiza os repositórios (dentro da lógica da API do GitHub), garanta que a API esteja trazendo todos os projetos públicos (per_page=100). Adicione uma regra no filtro (função filter()) para excluir explicitamente o repositório chamado sobre-mim, além de continuar excluindo o repositório com o mesmo nome do usuário (o README do perfil). Se houver limite de exibição (ex: .slice(0, 9)), aumente esse limite ou remova-o para mostrar todos.
+
+---
+
+## Ajuste de Layout dos Cards de Projeto — Proporção e Alinhamento (style.css)
+
+**Prompt:**
+
+Melhorar a proporção e o alinhamento interno dos cards de repositório nas telas maiores.
+Instrução: No arquivo style.css, modifique a classe .projeto-card e o grid #projetos-lista.
+Para desktop e notebook, ajuste o grid-template-columns para que os cards fiquem mais largos horizontalmente (por exemplo, mudando de 3 colunas para 2 colunas, ou usando minmax).
+Na classe .projeto-card, aplique display: flex; flex-direction: column; height: 100%; para que todos os cards tenham a mesma altura.
+Defina flex-grow: 1; na descrição do projeto para empurrar o rodapé do card (tags, estrelas, link) sempre para a base, mantendo os conteúdos perfeitamente alinhados entre si.
+
+---
+
+## Ajuste de Grid e Correção de Cores das Badges de Linguagem (style.css)
+
+**Prompt:**
+
+Ajuste o layout dos cards de projeto para exibir 4 colunas em telas maiores no arquivo style.css. E Conserte a cor das bolinhas de linguagem nos cards de projeto para que elas variem conforme a tecnologia.
+
+---
+
+## Correção de Layout — Cards Espremidos e Esticados (style.css)
+
+**Prompt:**
+
+Corrija o layout dos cards de projeto que ficaram espremidos e esticados verticalmente.
+1. No arquivo style.css, localize o seletor #projetos (onde fica o container principal da seção).
+2. Remova a linha max-width: var(--max-width-content); ou altere para max-width: 100%;. Isso permitirá que o grid ocupe o espaço total do contêiner principal (1200px) em vez de ficar restrito à largura de leitura de textos (65ch).
+3. Nas media queries de Notebook (min-width: 992px), altere o #projetos-lista para grid-template-columns: repeat(3, 1fr); para garantir uma proporção melhor e não espremer tanto os cards nessa resolução intermediária. O Desktop (min-width: 1200px) pode continuar com 4 colunas (repeat(4, 1fr)).
+
+---
+
+## Altura Fixa dos Cards e Limite de Linhas na Descrição (style.css)
+
+**Prompt:**
+
+Fixe a altura dos cards de projeto e adicione um limite de linhas para a descrição no arquivo style.css.
+1. Nas media queries de Desktop (min-width: 1200px) e Notebook (min-width: 992px), adicione a seguinte regra para cravar a altura dos cards:
+.projeto-card { 
+  height: 320px; 
+}
+2. Na regra geral da descrição (.projeto-card .projeto-descricao), limite o texto a 4 linhas para que descrições gigantes não vazem do card fixo. Adicione as seguintes propriedades:
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+
+---
+
+## Ajuste de Alinhamento e Espaçamento do Cabeçalho + Atualização de Ano (style.css, index.html)
+
+**Prompt:**
+
+Ajuste o alinhamento e o espaçamento do texto no cabeçalho (header) no arquivo style.css.
+1. Localize a regra header h1. Altere o margin-bottom: var(--spacing-xs); para margin-bottom: var(--spacing-md);. Isso vai desgrudar o título do subtítulo.
+2. Localize a regra header > p. A propriedade max-width está restrita a var(--max-width-content); (que equivale a 65 caracteres), o que está quebrando o texto prematuramente. Altere para max-width: 90ch; para permitir que toda a frase do subtítulo caiba em uma única linha nas telas grandes.
+E Atualize o ano dos direitos autorais no rodapé no arquivo index.html.
+No final do arquivo, dentro da tag <footer>, localize o parágrafo <p>&copy; 2025 Túlio Vilela Lopes</p> e mude "2025" para "2026".
+
+---
+
 ## PROMPTS.md — Registro dos Prompts
 
 **Prompt:**
 
-No final do processo, gere um arquivo PROMPTS.md contendo todos os comandos dados a você desde o início.
-
-Formatação:
-
-- Título: "# PROMPTS.md"
-- Introdução curta explicando que o arquivo registra os prompts usados para construir a página
-- Cada prompt numerado com o texto original preservado
-- Um comentário curto entre os prompts, indicando o commit semântico correspondente
-- Seção final com o link do GitHub Pages
-
-Reconstrua a lista com fidelidade ao histórico da nossa conversa.
+Para todos os prompts que eu fiz nessa secao, adicione no arquivo PROMPTS.md os prompst que eu fiz aqui, complemente com o que já estava la
 
 ---
 
 ## GitHub Pages
 
-Após o deploy, a página estará disponível em:
-
 [https://tulio8998.github.io/sobre-mim/](https://tulio8998.github.io/sobre-mim/)
-
-Numerar todos os prompts sequencialmente
