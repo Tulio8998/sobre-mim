@@ -235,13 +235,13 @@ header {
 }
 
 header h1 {
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
 }
 
 header > p {
   font-size: var(--font-size-lg);
   color: var(--color-fg-secondary);
-  max-width: var(--max-width-content);
+  max-width: 90ch;
   margin: 0 auto var(--spacing-md);
 }
 
@@ -354,7 +354,7 @@ header > p {
    ========================================================================== */
 
 #projetos {
-  max-width: var(--max-width-content);
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -402,6 +402,10 @@ header > p {
   margin-bottom: var(--spacing-md);
   line-height: var(--line-height-normal);
   flex-grow: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
 .projeto-card .projeto-meta {
@@ -424,7 +428,7 @@ header > p {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: var(--color-accent);
+  background-color: var(--lang-color);
 }
 
 .projeto-card .projeto-link {
@@ -658,7 +662,7 @@ html, body {
   }
 
   #projetos-lista {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 
   header {
@@ -674,6 +678,10 @@ html, body {
     height: 100px;
     bottom: var(--spacing-xl);
     right: var(--spacing-xl);
+  }
+
+  .projeto-card {
+    height: 320px;
   }
 }
 
@@ -693,7 +701,7 @@ html, body {
   }
 
   #projetos-lista {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   header {
@@ -709,6 +717,10 @@ html, body {
     height: 90px;
     bottom: var(--spacing-lg);
     right: var(--spacing-lg);
+  }
+
+  .projeto-card {
+    height: 320px;
   }
 }
 
