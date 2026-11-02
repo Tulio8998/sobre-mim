@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="octocat-body" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#238636"/>
+      <stop offset="100%" stop-color="#2ea043"/>
+    </linearGradient>
+    <linearGradient id="octocat-body-alt" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a371f7"/>
+      <stop offset="100%" stop-color="#d2a8ff"/>
+    </linearGradient>
+  </defs>
+  <!-- Corpo -->
+  <path class="octocat-body" fill="url(#octocat-body)" d="M128 0C57.3 0 0 57.3 0 128c0 59.2 38.7 109.1 91.8 126.9 6.7 1.2 9.2-2.9 9.2-6.5 0-3.2-.1-11.8-.1-23.1-37.3 8.1-45.1-18.1-45.1-18.1-6.1-15.5-14.9-19.6-14.9-19.6-12.2-8.3.9-8.1.9-8.1 13.5.9 20.6 13.8 20.6 13.8 12 20.4 31.4 14.5 39 11.1 1.2-8.6 4.7-14.5 8.5-17.8-29.7-3.4-61-14.9-61-66.4 0-14.7 5.3-26.7 14-36.1-1.4-3.4-6.1-17 1.3-35.4 0 0 11.4-3.6 37.4 14 10.8-3 22.5-4.5 34-4.5s23.2 1.5 34 4.5c26-17.6 37.4-14 37.4-14 7.4 18.4 2.7 32 1.3 35.4 8.7 9.4 14 21.4 14 36.1 0 51.6-31.4 62.8-61.2 66.2 4.8 4.1 9.1 12.4 9.1 25.1 0 18.1-.1 32.8-.1 37.2 0 3.6 2.5 7.7 9.2 6.5C217.3 237.1 256 187.2 256 128c0-70.7-57.3-128-128-128z"/>
+  <!-- Olhos -->
+  <ellipse class="octocat-eye" cx="87" cy="100" rx="12" ry="16" fill="#fff"/>
+  <ellipse class="octocat-eye" cx="169" cy="100" rx="12" ry="16" fill="#fff"/>
+  <!-- Pupilas -->
+  <ellipse class="octocat-pupil" cx="87" cy="100" rx="6" ry="8" fill="#000"/>
+  <ellipse class="octocat-pupil" cx="169" cy="100" rx="6" ry="8" fill="#000"/>
+  <!-- Boca -->
+  <path fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M87 150 Q128 170 169 150"/>
+</svg>

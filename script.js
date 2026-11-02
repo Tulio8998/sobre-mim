@@ -439,23 +439,6 @@
   }
 
   // ==========================================================================
-  // 4. ANIMAÇÃO DE CARREGAMENTO - Already in CSS, but we can enhance
-  // ==========================================================================
-
-  // A animação principal está no CSS (fade-in-up).
-  // Aqui apenas garantimos que a classe .page-wrapper existe.
-  function ensurePageWrapper() {
-    if (!document.querySelector(".page-wrapper")) {
-      const wrapper = document.createElement("div");
-      wrapper.className = "page-wrapper";
-      while (document.body.firstChild) {
-        wrapper.appendChild(document.body.firstChild);
-      }
-      document.body.appendChild(wrapper);
-    }
-  }
-
-  // ==========================================================================
   // INICIALIZAÇÃO PRINCIPAL
   // ==========================================================================
 
@@ -464,7 +447,6 @@
 
   // 2. Resto quando DOM pronto
   onReady(() => {
-    ensurePageWrapper();
     setupThemeToggle(initialTheme);
     loadProjects();
     initMascote();
