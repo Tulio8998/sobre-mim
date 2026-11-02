@@ -57,10 +57,14 @@
 
   /**
    * Aplica o tema no <body> imediatamente (evita flash)
+   * Tema escuro é o padrão (via :root no CSS), então só adiciona classe .light quando necessário
    */
   function applyTheme(theme) {
     document.body.classList.remove(THEME_DARK, THEME_LIGHT);
-    document.body.classList.add(theme);
+    if (theme === THEME_LIGHT) {
+      document.body.classList.add(THEME_LIGHT);
+    }
+    // Para tema escuro, não adiciona classe - usa variáveis do :root
   }
 
   /**
@@ -123,7 +127,8 @@
 
     // Click handler
     toggleBtn.addEventListener("click", () => {
-      const currentTheme = document.body.classList.contains(THEME_DARK) ? THEME_DARK : THEME_LIGHT;
+      // Verifica se tem a classe light (já que dark é o padrão sem classe)
+      const currentTheme = document.body.classList.contains(THEME_LIGHT) ? THEME_LIGHT : THEME_DARK;
       const newTheme = currentTheme === THEME_DARK ? THEME_LIGHT : THEME_DARK;
 
       applyTheme(newTheme);
